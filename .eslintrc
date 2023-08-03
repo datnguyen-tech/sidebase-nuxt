@@ -1,0 +1,35 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": ["@nuxtjs/eslint-config-typescript", "plugin:nuxt/recommended", "plugin:prettier/recommended"],
+  "rules": {
+    "vue/component-tags-order": [
+      "error",
+      {
+        "order": [["template", "script"], "style"]
+      }
+    ],
+    "vue/script-indent": ["error", 2, { "baseIndent": 1 }],
+    "comma-dangle": "off",
+    "@typescript-eslint/comma-dangle": "off",
+    "indent": "off",
+    "@typescript-eslint/indent": "off",
+    "no-console": "off"
+  },
+  "overrides": [
+    {
+      "files": ["./server/**/*.ts"],
+      "rules": {
+        "no-console": [
+          "error",
+          {
+            "allow": ["info", "warn", "trace", "error"]
+          }
+        ]
+      }
+    }
+  ]
+}
