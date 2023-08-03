@@ -4,8 +4,16 @@ export default defineNuxtConfig({
   //   shim: false
   // },
   modules: ['@nuxtjs/tailwindcss'],
-  ssr: false,
+
+  ssr: true,
+
   devtools: {
     enabled: true
-  }
+  },
+  runtimeConfig: {
+    public: {
+      apiBaseUrl: process.env.API_BASE_URL
+    }
+  },
+  plugins: ['~/plugins/api.ts']
 })
