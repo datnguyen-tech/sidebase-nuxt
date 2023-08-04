@@ -23,5 +23,5 @@
   },
   // Auto-complete `.value` attribute when volar is installed
   "volar.autoCompleteRefs": true,
-  "cSpell.words": ["Nuxt"]
+  "cSpell.words": ["Nuxt", "nuxtjs", "pinia", "tailwindcss"]
 }

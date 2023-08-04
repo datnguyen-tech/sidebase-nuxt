@@ -3,8 +3,10 @@ export default defineNuxtConfig({
   // typescript: {
   //   shim: false
   // },
-  modules: ['@nuxtjs/tailwindcss'],
-
+  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt'],
+  pinia: {
+    autoImports: ['defineStore', 'storeToRefs']
+  },
   ssr: false,
 
   devtools: {
