@@ -1,5 +1,3 @@
-// 3rd's
-import { FetchOptions } from 'ofetch'
 import { AsyncDataOptions } from '#app'
 
 // locals
@@ -21,25 +19,18 @@ type IProduct = {
 class ProductsModule extends FetchFactory<IProduct[]> {
   private RESOURCE = '/users'
 
-  /**
-   * Return the products as array
-   * @param asyncDataOptions options for `useAsyncData`
-   * @returns
-   */
   async getProducts(asyncDataOptions?: AsyncDataOptions<IProduct[]>) {
-    return await useAsyncData(() => {
-      const fetchOptions: FetchOptions<'json'> = {
-        headers: {
-          'Accept-Language': 'en-US'
-        }
+    try {
+      const data = await useAsyncData(() => {
+        return this.call('GET', `${this.RESOURCE}`)
+      }, asyncDataOptions)
+      if (data.error) {
+        throw data.error
       }
-      return this.call(
-        'GET',
-        `${this.RESOURCE}`,
-        undefined, // body
-        fetchOptions
-      )
-    }, asyncDataOptions)
+      return Promise.resolve(data)
+    } catch (error) {
+      return Promise.reject(error)
+    }
   }
 }
 

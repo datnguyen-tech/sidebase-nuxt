@@ -1,26 +1,36 @@
-// 3rd's
 import { $fetch, FetchOptions } from 'ofetch'
 
-// locals
+// import local module repository
 import ProductsModule from '~/repository/modules/product'
 
 interface IApiInstance {
   products: ProductsModule
 }
 
-export default defineNuxtPlugin(nuxtApp => {
+export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig()
+  const accessToken = useCookie('access_token')
 
   const fetchOptions: FetchOptions = {
-    baseURL: config.public.apiBaseUrl as string
+    baseURL: config.public.apiBaseUrl as string,
+    headers: {
+      Authorization: accessToken.value ? `Bearer ${accessToken.value}` : ''
+    },
+    onResponseError({ response }) {
+      if (response.status === 401) {
+        accessToken.value = null
+        location.href = '/login'
+      }
+      if (response.status === 400) {
+        // show notify in here
+      }
+    }
   }
 
-  // Create a new instance of $fecther with custom option
-  const apiFecther = $fetch.create(fetchOptions)
+  const apiFetcher = $fetch.create(fetchOptions)
 
-  // An object containing all repositories we need to expose
   const modules: IApiInstance = {
-    products: new ProductsModule(apiFecther)
+    products: new ProductsModule(apiFetcher)
   }
 
   return {
