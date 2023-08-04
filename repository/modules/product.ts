@@ -24,11 +24,26 @@ class ProductsModule extends FetchFactory<IProduct[]> {
       const data = await useAsyncData(() => {
         return this.call('GET', `${this.RESOURCE}`)
       }, asyncDataOptions)
-      if (data.error) {
-        throw data.error
+      if (data.error.value) {
+        throw data.error.value
       }
-      return Promise.resolve(data)
+      return Promise.resolve(data.data.value)
     } catch (error) {
+      console.log('loi')
+      return Promise.reject(error)
+    }
+  }
+
+  async getName() {
+    try {
+      const { data, error } = await useAsyncData(() => {
+        return this.call('GET', `${this.RESOURCE}/1`)
+      })
+      if (error.value) {
+        throw error.value
+      }
+      return Promise.resolve(data.value)
+    } catch (error: any) {
       return Promise.reject(error)
     }
   }

@@ -12,6 +12,7 @@
         "order": [["template", "script"], "style"]
       }
     ],
+    "vue/no-multiple-template-root": "off",
     "vue/script-indent": ["error", 2, { "baseIndent": 1 }],
     "comma-dangle": "off",
     "@typescript-eslint/comma-dangle": "off",
