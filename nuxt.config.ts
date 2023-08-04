@@ -19,5 +19,5 @@ export default defineNuxtConfig({
     }
   },
 
-  plugins: ['~/plugins/api.ts']
+  plugins: ['/d:/nuxt/sidebase-nuxt/plugins/api.ts']
 })

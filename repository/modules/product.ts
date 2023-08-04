@@ -16,12 +16,12 @@ type IProduct = {
   }
 }
 
-class ProductsModule extends FetchFactory<IProduct[]> {
+class ProductsModule extends FetchFactory {
   private RESOURCE = '/users'
 
   async getProducts(asyncDataOptions?: AsyncDataOptions<IProduct[]>) {
     try {
-      const data = await useAsyncData(() => {
+      const data = await useAsyncData((): Promise<IProduct[]> => {
         return this.call('GET', `${this.RESOURCE}`)
       }, asyncDataOptions)
       if (data.error.value) {
