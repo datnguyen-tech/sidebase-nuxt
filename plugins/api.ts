@@ -13,8 +13,9 @@ export default defineNuxtPlugin(() => {
 
   const fetchOptions: FetchOptions = {
     baseURL: config.public.apiBaseUrl as string,
-    headers: {
-      Authorization: accessToken.value ? `Bearer ${accessToken.value}` : ''
+
+    onRequest({ options }) {
+      options.headers = { ...options.headers, Authorization: accessToken.value ? `Bearer ${accessToken.value}` : '' }
     },
     onResponseError({ response }) {
       if (response.status === 401) {
